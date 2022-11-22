@@ -1,3 +1,3 @@
 #!/bin/bash
-g++ libSonarSample.cpp -o test -lwiringPi libSonar.cpp
-./test
+gcc -Wall -pthread -o testSonar libSonarSample.cpp -lpigpio -lrt
+./testSonar
