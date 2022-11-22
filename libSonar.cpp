@@ -1,5 +1,6 @@
 #include <iostream>
-#include <wiringPi.h>
+#include <stdio.h>
+#include <pigpio.h>
 #include "libSonar.h"
 
 Sonar::Sonar(){}
@@ -8,9 +9,10 @@ void Sonar::init(int trigger, int echo)
 {
     this->trigger=trigger;
     this->echo=echo;
-    pinMode(trigger, OUTPUT);
-    pinMode(echo, INPUT);
-    digitalWrite(trigger, LOW);
+    gpioSetMode(trigger, PI_OUTPUT);
+    gpioSetMode(echo, PI_INPUT);
+
+    gpioWrite(trigger, PI_LOW);
     delay(500);
 }
 
@@ -18,13 +20,13 @@ double Sonar::distance(int timeout)
 {
     delay(10);
 
-    digitalWrite(trigger, HIGH);
+    gpioWrite(trigger, PI_HIGH);
     delayMicroseconds(10);
-    digitalWrite(trigger, LOW);
+    gpioWrite(trigger, PI_LOW);
 
     now=micros();
 
-    while (digitalRead(echo) == LOW && micros()-now<timeout);
+    while (digitalRead(echo) == PI_LOW && micros()-now<timeout);
         recordPulseLength();
 
     travelTimeUsec = endTimeUsec - startTimeUsec;
@@ -36,6 +38,6 @@ double Sonar::distance(int timeout)
 void Sonar::recordPulseLength()
 {
     startTimeUsec = micros();
-    while ( digitalRead(echo) == HIGH );
+    while ( digitalRead(echo) == PI_HIGH );
     endTimeUsec = micros();
 }
