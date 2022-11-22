@@ -1,15 +1,16 @@
 #include <iostream>
-#include <wiringPi.h>
+#include <stdio.h>
+#include <pigpio.h>
 #include "libSonar.h"
 
 using namespace std;
 
-int trigger = 1;
-int echo = 0;
+int trigger = 4;
+int echo = 5;
 
 int main()
 {
-    if (wiringPiSetup() == -1)
+    if (gpioInitialise() == -1)
         return -1;
 
     Sonar sonar;
