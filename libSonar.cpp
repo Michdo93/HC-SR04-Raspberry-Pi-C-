@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdio.h>
-#include <sys/time.h>
 #include <pigpio.h>
 #include "libSonar.h"
 
@@ -12,47 +11,28 @@ void Sonar::init(int trigger, int echo)
     this->echo=echo;
     gpioSetMode(trigger, PI_OUTPUT);
     gpioSetMode(echo, PI_INPUT);
-
-    gpioWrite(trigger, PI_LOW);
-    gpioDelay(500);
 }
 
-double Sonar::time_time()
+double Sonar::distance()
 {
-   struct timeval tv;
-   double t;
+    gpioSetMode(trigger, PI_HIGH);
 
-   gettimeofday(&tv, 0);
-
-   t = 1000000 * (double)tv.tv_sec + (double)tv.tv_usec);
-
-   return t;
-}
-
-double Sonar::distance(int timeout)
-{
     gpioDelay(10);
+    gpioSetMode(trigger, PI_LOW);
 
-    gpioWrite(trigger, PI_HIGH);
-    gpioDelay(10);
-    gpioWrite(trigger, PI_LOW);
+    double startTime = time_time();
+    double arrivalTime = time_time();
 
-    now = time_time();
-
-    while (gpioRead(echo) == PI_LOW && time_time()-now<timeout) {
-        recordPulseLength();
+    while(gpioRead(echo) == PI_LOW) {
+        startTime = time_time();
     }
 
-    travelTimeUsec = endTimeUsec - startTimeUsec;
-    distanceMeters = 100*((travelTimeUsec/1000000.0)*340.29)/2;
-
-    return distanceMeters;
-}
-
-void Sonar::recordPulseLength()
-{
-    startTimeUsec = time_time();
-    while (gpioRead(echo) == PI_HIGH) {
-        endTimeUsec = time_time();
+    while(gpioRead(echo) == PI_HIGH) {
+        arrivalTime = time_time();
     }
+
+    double timeElapsed = arrivalTime - startTime;
+    double distanceCalculated = (timeElapsed * 34300) / 2;
+
+    return distanceCalculated;
 }
