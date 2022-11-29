@@ -1,3 +1,3 @@
 #!/bin/bash
-gcc -Wall -pthread -o testSonar libSonarSample.cpp -lpigpio -lrt
-./testSonar
+g++ -Wall -pthread libSonarSample.cpp libSonar.cpp -o testSonar -lpigpio -lrt
+sudo ./testSonar
