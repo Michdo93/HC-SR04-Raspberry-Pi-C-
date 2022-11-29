@@ -15,6 +15,9 @@ class Sonar
     double arrivalTime;
     double timeElapsed;
     double distanceCalculated;
+    double distance1;
+    double distance2;
+    double speedMeasured;
 };
 
 #endif
