@@ -10,6 +10,9 @@ class Sonar
 
   private:
     void recordPulseLength();
+    double time_time();
+    struct timeval tv;
+    double t;
     int trigger;
     int echo;
     volatile long startTimeUsec;
