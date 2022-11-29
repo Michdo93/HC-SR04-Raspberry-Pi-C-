@@ -28,8 +28,7 @@ For running the library you can create an example like this:
 
 using namespace std;
 
-int trigger = 19;
-int echo = 26;
+int signal = 19;
 
 int main()
 {
@@ -37,7 +36,7 @@ int main()
         return -1;
 
     Sonar sonar;
-    sonar.init(trigger, echo);
+    sonar.init(signal);
 
     while(1){
         cout << "Distance is " << sonar.distance() << " cm." << endl;
