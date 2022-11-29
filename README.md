@@ -6,23 +6,14 @@ This class allows you to get datas from the HC-SR04 sensor easily in C++!
 You have to download and install the [pigpio](https://abyz.me.uk/rpi/pigpio/) library:
 
 ```
-wget https://github.com/joan2937/pigpio/archive/master.zip
-unzip master.zip
-cd pigpio-master
-make
-sudo make install
-```
-
-If the Python part of the install fails it may be because you need the setup tools.
-
-```
-sudo apt install python-setuptools python3-setuptools
+sudo apt-get install pigpio
 ```
 
 To start the pigpio daemon run
 
 ```
-sudo pigpiod
+sudo systemctl start pigpiod
+sudo systemctl enable pigpiod
 ```
 
 ## Usage
