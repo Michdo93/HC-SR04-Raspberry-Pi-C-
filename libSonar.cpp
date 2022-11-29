@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <sys/time.h>
 #include <pigpio.h>
 #include "libSonar.h"
 
@@ -13,21 +14,34 @@ void Sonar::init(int trigger, int echo)
     gpioSetMode(echo, PI_INPUT);
 
     gpioWrite(trigger, PI_LOW);
-    delay(500);
+    gpioDelay(500);
+}
+
+double Sonar::time_time()
+{
+   struct timeval tv;
+   double t;
+
+   gettimeofday(&tv, 0);
+
+   t = 1000000 * (double)tv.tv_sec + (double)tv.tv_usec);
+
+   return t;
 }
 
 double Sonar::distance(int timeout)
 {
-    delay(10);
+    gpioDelay(10);
 
     gpioWrite(trigger, PI_HIGH);
-    delayMicroseconds(10);
+    gpioDelay(10);
     gpioWrite(trigger, PI_LOW);
 
-    now=micros();
+    now = time_time();
 
-    while (digitalRead(echo) == PI_LOW && micros()-now<timeout);
+    while (gpioRead(echo) == PI_LOW && time_time()-now<timeout) {
         recordPulseLength();
+    }
 
     travelTimeUsec = endTimeUsec - startTimeUsec;
     distanceMeters = 100*((travelTimeUsec/1000000.0)*340.29)/2;
@@ -37,7 +51,8 @@ double Sonar::distance(int timeout)
 
 void Sonar::recordPulseLength()
 {
-    startTimeUsec = micros();
-    while ( digitalRead(echo) == PI_HIGH );
-    endTimeUsec = micros();
+    startTimeUsec = time_time();
+    while (gpioRead(echo) == PI_HIGH) {
+        endTimeUsec = time_time();
+    }
 }
