@@ -6,20 +6,15 @@ class Sonar
   public:
     Sonar();
     void init(int trigger, int echo);
-    double distance(int timeout);
+    double distance();
 
   private:
-    void recordPulseLength();
-    double time_time();
-    struct timeval tv;
-    double t;
     int trigger;
     int echo;
-    volatile long startTimeUsec;
-    volatile long endTimeUsec;
-    double distanceMeters;
-    long travelTimeUsec;
-    long now;
+    double startTime;
+    double arrivalTime;
+    double timeElapsed;
+    double distanceCalculated;
 };
 
 #endif
