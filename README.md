@@ -1,5 +1,5 @@
 # HC-SR04 Raspberry Pi C++
-This class allows you to get datas from the HC-SR04 sensor easily in C++!
+This class allows you to get datas from the Parallax PING))) sensor easily in C++!
 
 ## Installation
 
@@ -28,7 +28,8 @@ For running the library you can create an example like this:
 
 using namespace std;
 
-int signal = 19;
+int trigger = 19;
+int echo = 26;
 
 int main()
 {
@@ -36,7 +37,7 @@ int main()
         return -1;
 
     Sonar sonar;
-    sonar.init(signal);
+    sonar.init(trigger, echo);
 
     while(1){
         cout << "Distance is " << sonar.distance() << " cm." << endl;
