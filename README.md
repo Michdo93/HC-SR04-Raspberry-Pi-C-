@@ -28,8 +28,8 @@ For running the library you can create an example like this:
 
 using namespace std;
 
-int trigger = 4;
-int echo = 5;
+int trigger = 19;
+int echo = 26;
 
 int main()
 {
@@ -40,7 +40,8 @@ int main()
     sonar.init(trigger, echo);
 
     while(1){
-        cout << "Distance is " << sonar.distance(30000) << " cm." << endl;
+        cout << "Distance is " << sonar.distance() << " cm." << endl;
     }
 }
+
 ```
