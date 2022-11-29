@@ -36,3 +36,14 @@ double Sonar::distance()
 
     return distanceCalculated;
 }
+
+double Sonar::speed()
+{
+    double distance1 = distance();    
+    usleep(1000000);
+    double distance2 = distance();
+    
+    double speedMeasured = (distance2 - distance1) / 1.0;
+    
+    return speedMeasured;
+}
