@@ -1,5 +1,7 @@
 #include <iostream>
+#include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <pigpio.h>
 #include "libSonar.h"
 
@@ -18,5 +20,6 @@ int main()
 
     while(1){
         cout << "Distance is " << sonar.distance() << " cm." << endl;
+        usleep(1000000);
     }
 }
