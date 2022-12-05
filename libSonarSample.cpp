@@ -5,8 +5,8 @@
 
 using namespace std;
 
-int trigger = 19;
-int echo = 26;
+uint8_t trigger = 19;
+uint8_t echo = 26;
 
 int main()
 {
