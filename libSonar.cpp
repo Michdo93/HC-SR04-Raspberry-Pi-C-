@@ -5,7 +5,7 @@
 
 Sonar::Sonar(){}
 
-void Sonar::init(int trigger, int echo)
+void Sonar::init(const uint8_t &trigger, const uint8_t &echo)
 {
     this->trigger=trigger;
     this->echo=echo;
