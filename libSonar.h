@@ -5,7 +5,7 @@ class Sonar
 {
   public:
     Sonar();
-    void init(const uint8_t trigger, const uint8_t echo);
+    void init(const uint8_t &trigger, const uint8_t &echo);
     double distance();
 
   private:
