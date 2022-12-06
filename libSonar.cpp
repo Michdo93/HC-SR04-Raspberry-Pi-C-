@@ -49,3 +49,8 @@ double Sonar::speed()
     
     return speedMeasured;
 }
+
+Sonar::~Sonar()
+{
+    gpioTerminate();
+}
