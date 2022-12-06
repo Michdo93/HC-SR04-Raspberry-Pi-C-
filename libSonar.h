@@ -7,6 +7,7 @@ class Sonar
     Sonar();
     void init(const uint8_t &trigger, const uint8_t &echo);
     double distance();
+    double speed();
 
   private:
     uint8_t trigger;
