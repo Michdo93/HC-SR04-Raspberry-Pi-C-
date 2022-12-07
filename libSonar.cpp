@@ -17,10 +17,10 @@ void Sonar::init(const uint8_t &trigger, const uint8_t &echo)
 
 double Sonar::distance()
 {
-    gpioSetMode(trigger, PI_HIGH);
+    gpioWrite(trigger, PI_HIGH);
 
     gpioDelay(10);
-    gpioSetMode(trigger, PI_LOW);
+    gpioWrite(trigger, PI_LOW);
 
     double startTime = time_time();
     double arrivalTime = time_time();
